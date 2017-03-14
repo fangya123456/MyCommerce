@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fy.commerce.mapper.ICategoryMapper">
+
+    <resultMap id="CategoryResultMap" type="com.fy.commerce.model.Category">
+        <id column="cid" property="cid" jdbcType="INTEGER"/>
+        <result column="cname" property="cname" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectAllCategoryInfo" resultMap="CategoryResultMap">
+        select * from category
+    </select>
+    <select id="selectCategoryInfoById" parameterType="int" resultMap="CategoryResultMap">
+        select * from category where cid = #{cid} 
+    </select>
+    
+    <select id="selectCategoryInfoByExample" parameterType="com.fy.commerce.model.Category" resultMap="CategoryResultMap">
+        select * from category
+        <where>
+          <choose>
+              <when test="cid != null">
+                  cid = #{cid,jdbcType=INTEGER}
+              </when>
+              <when test="">
+                 AND cname = #{cname, jdbcType=VARCHAR}
+              </when>
+          </choose>
+        </where>
+    </select> 
+    
+    <insert id="insertCategoryInfoByExample" parameterType="com.fy.commerce.model.Category" useGeneratedKeys="true"
+            keyProperty="cid">
+        insert into category (cname) values (#{cname})
+    </insert>
+
+    <update id="updateCategoryInfoById" parameterType="int" >
+        update category set cname=#{cname} where cid = #{cid}
+    </update>
+
+    <delete id="deleteCategoryById" parameterType="int">
+        delete from category where cid = #{cid}
+    </delete>
+
+    <delete id="deleteCategoryByExample" parameterType="com.fy.commerce.model.Category">
+        delete from category
+        <where>
+            <choose>
+                <when test="cid != null">
+                    cid = #{cid}
+                </when>
+                <when test="cname != null">
+                    AND cname = #{cname}
+                </when>
+            </choose>
+        </where>
+    </delete>
+</mapper>
