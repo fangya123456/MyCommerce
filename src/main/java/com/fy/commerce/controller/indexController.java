@@ -42,7 +42,7 @@ public class indexController {
     @RequestMapping(value = "/login", method = {RequestMethod.GET})
     public String login(Model model, HttpServletRequest request){
 
-        log.info("login:访问登录页");
+        //log.info("login:访问登录页");
         User user = (User)request.getSession().getAttribute("USER_LOGIN");
         String state = (String)request.getSession().getAttribute("state");
         if(state!=null){
