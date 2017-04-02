@@ -1,155 +1,95 @@
 package com.fy.commerce.model;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
-/**
- * Created by ya.fang on 2017/1/16.
- */
-public class Product implements Serializable{
+public class Product {
+    private Integer id;
 
-    /**
-     * 商品ID
-     * */
-    private int pid;
+    private String productName;
 
-    /**
-     * 商品名
-     * */
-    private String pname;
+    private Double marketPrice;
 
-    /**
-    * 商城价
-     * */
-    private double marketPrice;
+    private Double shopPrice;
 
-    /**
-     * 店铺价
-     * */
-    private double shopPrice;
+    private String image;
 
-    /**
-     * 商品图片url
-     * */
-    private String pimage;
+    private String description;
 
-    /**
-     * 商品总数
-     * */
-    private int pnum;
+    private Integer isHot;
 
-    /**
-     * 商品库存数
-     * */
-    private int pinvotory;
+    private Date uploadDate;
 
-    /**
-     * 商品描述
-     * */
-    private String pdesc;
+    private Integer categorySecondId;
 
-    /**
-     * 热门商品
-     * 1： 是
-     * 0： 否
-     * */
-    private int isHot;
-
-    /**
-     * 商品日期
-     * */
-    private Timestamp pdate;
-
-    /**
-     * 二级分类ID
-     * */
-    private int csid;
-
-    public int getPid() {
-        return pid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPid(int pid) {
-        this.pid = pid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getPname() {
-        return pname;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setPname(String pname) {
-        this.pname = pname;
+    public void setProductName(String productName) {
+        this.productName = productName == null ? null : productName.trim();
     }
 
-    public double getMarketPrice() {
+    public Double getMarketPrice() {
         return marketPrice;
     }
 
-    public void setMarketPrice(double marketPrice) {
+    public void setMarketPrice(Double marketPrice) {
         this.marketPrice = marketPrice;
     }
 
-    public double getShopPrice() {
+    public Double getShopPrice() {
         return shopPrice;
     }
 
-    public void setShopPrice(double shopPrice) {
+    public void setShopPrice(Double shopPrice) {
         this.shopPrice = shopPrice;
     }
 
-    public String getPimage() {
-        return pimage;
+    public String getImage() {
+        return image;
     }
 
-    public void setPimage(String pimage) {
-        this.pimage = pimage;
+    public void setImage(String image) {
+        this.image = image == null ? null : image.trim();
     }
 
-    public int getPnum() {
-        return pnum;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPnum(int pnum) {
-        this.pnum = pnum;
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
-    public int getPinvotory() {
-        return pinvotory;
-    }
-
-    public void setPinvotory(int pinvotory) {
-        this.pinvotory = pinvotory;
-    }
-
-    public String getPdesc() {
-        return pdesc;
-    }
-
-    public void setPdesc(String pdesc) {
-        this.pdesc = pdesc;
-    }
-
-    public int getIsHot() {
+    public Integer getIsHot() {
         return isHot;
     }
 
-    public void setIsHot(int isHot) {
+    public void setIsHot(Integer isHot) {
         this.isHot = isHot;
     }
 
-    public Timestamp getPdate() {
-        return pdate;
+    public Date getUploadDate() {
+        return uploadDate;
     }
 
-    public void setPdate(Timestamp pdate) {
-        this.pdate = pdate;
+    public void setUploadDate(Date uploadDate) {
+        this.uploadDate = uploadDate;
     }
 
-    public int getCsid() {
-        return csid;
+    public Integer getCategorySecondId() {
+        return categorySecondId;
     }
 
-    public void setCsid(int csid) {
-        this.csid = csid;
+    public void setCategorySecondId(Integer categorySecondId) {
+        this.categorySecondId = categorySecondId;
     }
 }

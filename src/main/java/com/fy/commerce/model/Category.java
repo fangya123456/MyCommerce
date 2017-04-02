@@ -1,36 +1,23 @@
 package com.fy.commerce.model;
 
-import java.io.Serializable;
+public class Category {
+    private Integer id;
 
-/**
- * Created by ya.fang on 2017/1/16.
- * 一级分类
- */
-public class Category implements Serializable {
+    private String categoryName;
 
-    /**
-    * 一级分类ID
-     * */
-    private int cid;
-
-    /**
-     * 一级分类类名
-     * */
-    private String cname;
-
-    public int getCid() {
-        return cid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCid(int cid) {
-        this.cid = cid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getCname() {
-        return cname;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCname(String cname) {
-        this.cname = cname;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName == null ? null : categoryName.trim();
     }
 }

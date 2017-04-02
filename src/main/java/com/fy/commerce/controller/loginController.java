@@ -1,6 +1,6 @@
 package com.fy.commerce.controller;
 
-import com.fy.commerce.model.User;
+import com.fy.commerce.model.ShopUser;
 import com.fy.commerce.service.api.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,9 +33,9 @@ public class loginController {
     @ApiIgnore
     @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
     @ApiOperation(value = "用户登录", notes = "用户登录控制")
-    public String userLogin(@ModelAttribute User user, ModelMap modelMap, HttpServletRequest request){
+    public String userLogin(@ModelAttribute ShopUser user, ModelMap modelMap, HttpServletRequest request){
 
-        User queryUser = userService.findUserInfoByExample(user);
+        ShopUser queryUser = userService.findUserInfoByLoginInfo(user);
         modelMap.addAttribute("USER_LOGIN", queryUser);
 
         request.getSession().setAttribute("user_log", "log");

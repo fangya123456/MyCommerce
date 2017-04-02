@@ -1,6 +1,6 @@
 package com.fy.commerce.controller;
 
-import com.fy.commerce.model.User;
+import com.fy.commerce.model.ShopUser;
 import com.fy.commerce.service.api.IUserService;
 import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
@@ -31,11 +31,11 @@ public class loginDeal {
     @ApiIgnore
     @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
     @ApiOperation(value = "用户登录", notes = "用户登录控制")
-    public String userLogin(@ModelAttribute User user, Model model, HttpServletRequest request){
+    public String userLogin(@ModelAttribute ShopUser user, Model model, HttpServletRequest request){
 
         HttpSession session = request.getSession();
-        User queryUser = userService.findUserInfoByExample(user);
-        log.info("QueryUser:"+user.getUsername());
+        ShopUser queryUser = userService.findUserInfoByLoginInfo(user);
+        log.info("QueryUser:"+user.getUserName());
         session.setAttribute("USER_LOGIN", queryUser);
         if(queryUser == null){
             log.info("用户不存在");

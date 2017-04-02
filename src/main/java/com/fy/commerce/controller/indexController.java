@@ -1,6 +1,6 @@
 package com.fy.commerce.controller;
 
-import com.fy.commerce.model.User;
+import com.fy.commerce.model.ShopUser;
 import com.fy.commerce.service.api.IUserService;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
@@ -30,7 +30,7 @@ public class indexController {
     public String index(Model model, HttpServletRequest request){
 
         log.info("index:访问首页");
-        User user = (User)request.getSession().getAttribute("USER_LOGIN");
+        ShopUser user = (ShopUser)request.getSession().getAttribute("USER_LOGIN");
         String state = (String)request.getSession().getAttribute("state");
         if(user != null && state.equals("1")){
             model.addAttribute("user_login",user);
@@ -42,8 +42,8 @@ public class indexController {
     @RequestMapping(value = "/login", method = {RequestMethod.GET})
     public String login(Model model, HttpServletRequest request){
 
-        //log.info("login:访问登录页");
-        User user = (User)request.getSession().getAttribute("USER_LOGIN");
+        log.info("login:访问登录页");
+        ShopUser user = (ShopUser)request.getSession().getAttribute("USER_LOGIN");
         String state = (String)request.getSession().getAttribute("state");
         if(state!=null){
             if (user == null && state.equals("2")){
@@ -66,7 +66,7 @@ public class indexController {
     @RequestMapping(value = "/product", method = {RequestMethod.GET})
     public String product(Model model, HttpServletRequest request, HttpSession httpSession){
         log.info("访问商城中心");
-        User user = (User)request.getSession().getAttribute("USER_LOGIN");
+        ShopUser user = (ShopUser)request.getSession().getAttribute("USER_LOGIN");
         String state = (String)request.getSession().getAttribute("state");
         if(user != null && state.equals("1")){
             model.addAttribute("user_login",user);

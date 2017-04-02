@@ -1,6 +1,6 @@
 package com.fy.commerce.controller;
 
-import com.fy.commerce.model.User;
+import com.fy.commerce.model.ShopUser;
 import com.fy.commerce.service.api.IUserService;
 import com.fy.commerce.utils.Result;
 import io.swagger.annotations.Api;
@@ -25,12 +25,12 @@ public class registController {
 
     @ResponseBody
     @RequestMapping(value = "/insertUserInfo", method = RequestMethod.POST)
-    public Result insertUserInfo(@ModelAttribute User user){
+    public Result insertUserInfo(@ModelAttribute ShopUser user){
 
         int id = 0;
         user.setCode("0000-0000-1111-0000");
         user.setState(0);
-        if(userService.findUserInfoByExample(user) == null){
+        if(userService.findUserInfoByLoginInfo(user) == null){
             id = userService.addUserInfoByExample(user);
             //log.info();
         }
@@ -42,9 +42,9 @@ public class registController {
     @ApiOperation(value = "校验用户信息", notes = "校验用户信息接口")
     public Result validateUsername(@RequestParam("username") String username){
         log.info("username:"+username);
-        User user = new User();
-        user.setUsername(username);
-        user = userService.findUserInfoByExample(user);
+        ShopUser user = new ShopUser();
+        user.setUserName(username);
+        user = userService.findUserInfoByLoginInfo(user);
         if (user != null){
             return new Result(200,0);
         }
@@ -57,9 +57,9 @@ public class registController {
     public Result validateEmail(@RequestParam("email") String email){
 
         log.info("email:"+email);
-        User user = new User();
+        ShopUser user = new ShopUser();
         user.setEmail(email);
-        user = userService.findUserInfoByExample(user);
+        user = userService.findUserInfoByLoginInfo(user);
         if (user != null){
             return new Result(200,0);
         }

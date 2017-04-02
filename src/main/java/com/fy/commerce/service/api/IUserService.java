@@ -1,6 +1,6 @@
 package com.fy.commerce.service.api;
 
-import com.fy.commerce.model.User;
+import com.fy.commerce.model.ShopUser;
 
 /**
  * Created by ya.fang on 2017/1/9.
@@ -8,9 +8,9 @@ import com.fy.commerce.model.User;
 
 public interface IUserService {
 
-    User findUserInfoById(int id);
+    ShopUser findUserInfoById(int id);
 
-    User findUserInfoByExample(User user);
+    ShopUser findUserInfoByLoginInfo(ShopUser user);
 
-    int addUserInfoByExample(User user);
+    int addUserInfoByExample(ShopUser user);
 }

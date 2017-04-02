@@ -1,48 +1,33 @@
 package com.fy.commerce.model;
 
-import java.io.Serializable;
+public class CategorySecond {
+    private Integer id;
 
-/**
- * Created by ya.fang on 2017/1/16.
- */
-public class CategorySecond implements Serializable {
+    private String categorySecondName;
 
-    /**
-     * 二级分类ID
-     * */
-    private int csid;
+    private Integer categoryId;
 
-    /**
-     * 二级分类类名
-     * */
-    private String csname;
-
-    /**
-     * 一级分类ID
-     * */
-    private int cid;
-
-    public int getCsid() {
-        return csid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCsid(int csid) {
-        this.csid = csid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getCsname() {
-        return csname;
+    public String getCategorySecondName() {
+        return categorySecondName;
     }
 
-    public void setCsname(String csname) {
-        this.csname = csname;
+    public void setCategorySecondName(String categorySecondName) {
+        this.categorySecondName = categorySecondName == null ? null : categorySecondName.trim();
     }
 
-    public int getCid() {
-        return cid;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCid(int cid) {
-        this.cid = cid;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 }
