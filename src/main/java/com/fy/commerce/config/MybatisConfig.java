@@ -21,7 +21,7 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan("com.fy.commerce.mapper")
+@MapperScan("com.fy.commerce.dao")
 public class MybatisConfig {
 
     //数据库数据源配置
@@ -50,7 +50,7 @@ public class MybatisConfig {
 
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 
-        sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:/mapper/*.xml"));
+        sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:/com/fy/commerce/mapper/*.xml"));
 
         return sqlSessionFactoryBean.getObject();
     }
