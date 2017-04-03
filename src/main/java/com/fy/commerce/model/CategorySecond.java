@@ -1,6 +1,8 @@
 package com.fy.commerce.model;
 
-public class CategorySecond {
+import java.io.Serializable;
+
+public class CategorySecond implements Serializable{
     private Integer id;
 
     private String categorySecondName;

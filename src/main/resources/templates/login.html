@@ -12,7 +12,7 @@
 
     <script src="/js/tool/bootstrap.min.js"/>
     <script src="/js/tool/jquery.js"/>
-    <!--<script src="/js/login.js"></script>-->
+    <script src="/js/login.js"/>
 </head>
 <body>
 <div class="container header">
@@ -99,13 +99,13 @@
                     <strong>会员登录</strong>USER LOGIN
                 </div>
                 <!-- 登录表单 -->
-                <form id="loginForm"  method="post" novalidate="novalidate" action="/login/userLogin">
+                <form id="loginForm"  method="post" novalidate="novalidate" action="">
                     <table>
                         <tbody>
                             <tr>
                                 <th>用户名/E-mail:</th>
                                 <td>
-                                    <input type="text" id="username" name="username" class="text" maxlength="20" />
+                                    <input type="text" id="userName" name="userName" class="text" maxlength="20" />
                                 </td>
                             </tr>
                             <tr>
@@ -137,7 +137,7 @@
                             <tr>
                                  <th>&nbsp;</th>
                                 <td>
-                                    <input type="submit" name="submit" class="text" value="登录"/>
+                                    <input type="submit" id="userLogin" name="submit" class="text" value="登录"/>
                                 </td>
                             </tr>
                             <tr class="register">

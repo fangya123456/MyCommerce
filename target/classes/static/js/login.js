@@ -2,23 +2,23 @@
  * Created by ya.fang on 2017/1/9.
  */
 
-    //支持Enter键登录
-    function login_submit(){
-       /* $.post('/login/userLogin', $("#loginForm").serialize(),function (res) {
-            alert(res.location);
-        });*/
+ $(function () {
+     //支持Enter键登录
+     /* $.post('/login/userLogin', $("#loginForm").serialize(),function (res) {
+      alert(res.location);
+      });*/
+     $("#userLogin").click(function () {
+         $.ajax({
+             cache: true,
+             type: "POST",
+             url: "/loginPage/userLogin",
+             data: $("#loginForm").serialize(),// 你的formid
+             async: true,
+             success: function (res) {
+                 alert(res);
+             }
+         });
+     });
 
-    $.ajax({
-        cache: true,
-        type: "POST",
-        url: "/login/userLogin",
-        data: $("#loginForm").serialize(),// 你的formid
-        async: false,
-        dataType: "html",
-        success: function (res) {
-            alert(res);
-        }
-    });
-
-}
+ });
 

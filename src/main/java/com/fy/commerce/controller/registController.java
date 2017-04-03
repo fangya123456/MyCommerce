@@ -2,6 +2,7 @@ package com.fy.commerce.controller;
 
 import com.fy.commerce.model.ShopUser;
 import com.fy.commerce.service.api.IUserService;
+import com.fy.commerce.utils.CipherUtil;
 import com.fy.commerce.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,6 +11,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 /**
  * Created by ya.fang on 2017/1/11.
@@ -25,14 +29,12 @@ public class registController {
 
     @ResponseBody
     @RequestMapping(value = "/insertUserInfo", method = RequestMethod.POST)
-    public Result insertUserInfo(@ModelAttribute ShopUser user){
+    public Result insertUserInfo(@ModelAttribute ShopUser user, HttpServletRequest request){
 
         int id = 0;
-        user.setCode("0000-0000-1111-0000");
-        user.setState(0);
         if(userService.findUserInfoByLoginInfo(user) == null){
+            user.setPassword(CipherUtil.generatePassword(user.getPassword()));
             id = userService.addUserInfoByExample(user);
-            //log.info();
         }
         return new Result(200, id);
     }

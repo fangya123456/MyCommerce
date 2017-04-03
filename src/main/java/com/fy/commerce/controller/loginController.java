@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Controller
 @SessionAttributes({"USER_LOGIN","state"})
-@RequestMapping("/login")
+@RequestMapping("/loginPage")
 @Api(value = "登录信息控制", description = "登录信息控制")
 public class loginController {
 
@@ -34,22 +34,15 @@ public class loginController {
     @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
     @ApiOperation(value = "用户登录", notes = "用户登录控制")
     public String userLogin(@ModelAttribute ShopUser user, ModelMap modelMap, HttpServletRequest request){
-
-        ShopUser queryUser = userService.findUserInfoByLoginInfo(user);
-        modelMap.addAttribute("USER_LOGIN", queryUser);
-
-        request.getSession().setAttribute("user_log", "log");
-        if(queryUser == null){
-            log.info("用户不存在");
-            modelMap.addAttribute("state", "2"); //用户不存在
+        //加密验证后登陆
+        int loginState = userService.checkLoginInfo(user);
+        modelMap.addAttribute("USER_LOGIN", user);
+        modelMap.addAttribute("state", loginState);
+        if (loginState < 0){
+            log.info("登陆验证失败！");
             return "redirect:/login";
-        } else if(!queryUser.getPassword().equals(user.getPassword())){
-            log.info("密码错误");
-            modelMap.addAttribute("state", "3"); //密码错误
-            return "redirect:/login";
-        } else{
-            modelMap.addAttribute("state", "1");
-
+        }else{
+            log.info("登陆验证成功！");
             return "redirect:/index";  //登录成功
         }
     }
@@ -58,7 +51,6 @@ public class loginController {
     @RequestMapping(value = "/userLogout", method = RequestMethod.GET)
     @ApiOperation(value = "退出登录", notes = "退出登录控制")
     public String userLogout(ModelMap model, HttpServletRequest request, SessionStatus sessionStatus){
-
         //刷新退出前页面
         int beginIdx = ("http://"+request.getLocalAddr().toString()).length();
         String path = request.getHeader("Referer").substring(beginIdx);
@@ -66,12 +58,5 @@ public class loginController {
         request.getSession().invalidate();
         log.info("退出登录");
         return  path;
-    }
-
-    @RequestMapping(value = "/acceptList", method = RequestMethod.POST)
-    @ResponseBody
-    public int acceptList(@RequestParam("list1[]")List<Integer> list1,@RequestParam("list2[]")List<Integer> list2){
-        System.out.println(list1.size() + "  " + list2.size());
-        return 1;
     }
 }

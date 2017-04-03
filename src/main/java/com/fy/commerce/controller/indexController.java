@@ -30,9 +30,10 @@ public class indexController {
     public String index(Model model, HttpServletRequest request){
 
         log.info("index:访问首页");
-        ShopUser user = (ShopUser)request.getSession().getAttribute("USER_LOGIN");
-        String state = (String)request.getSession().getAttribute("state");
-        if(user != null && state.equals("1")){
+
+        String state = (String) request.getSession().getAttribute("state");
+        if(state != null && state.equals("1")){
+            ShopUser user = (ShopUser) request.getSession().getAttribute("USER_LOGIN");
             model.addAttribute("user_login",user);
         }
         return "index";
@@ -43,28 +44,30 @@ public class indexController {
     public String login(Model model, HttpServletRequest request){
 
         log.info("login:访问登录页");
-        ShopUser user = (ShopUser)request.getSession().getAttribute("USER_LOGIN");
+        //ShopUser user = (ShopUser)request.getSession().getAttribute("USER_LOGIN");
         String state = (String)request.getSession().getAttribute("state");
-        if(state!=null){
-            if (user == null && state.equals("2")){
-                model.addAttribute("errMsg", "用户不存在");
-            }else if(user != null && state.equals("3")){
-                model.addAttribute("errMsg", "密码错误");
-            }
+
+        if (state.equals("-1")){
+            model.addAttribute("errMsg", "用户名或密码为空");
+        }else if(state.equals("-2")){
+            model.addAttribute("errMsg", "用户名不存在");
+        }else if (state.equals("-3")){
+            model.addAttribute("errMsg", "密码错误");
         }
+
         return "login";
     }
 
     @ApiIgnore
     @RequestMapping(value = "/regist", method = {RequestMethod.GET})
-    public String regist(Model model){
+    public String regist(Model model, HttpServletRequest request){
 
         return "regist";
     }
 
     @ApiIgnore
     @RequestMapping(value = "/product", method = {RequestMethod.GET})
-    public String product(Model model, HttpServletRequest request, HttpSession httpSession){
+    public String product(Model model, HttpServletRequest request){
         log.info("访问商城中心");
         ShopUser user = (ShopUser)request.getSession().getAttribute("USER_LOGIN");
         String state = (String)request.getSession().getAttribute("state");

@@ -51,7 +51,7 @@
             </div>
             <div class="topNav clearfix" th:if="${user_login !=null}">
                 <li id="headerUsername" class="headerUsername">
-                    <a href="#"><span th:text="${user_login.username }"></span></a>
+                    <a href="#"><span th:text="${user_login.userName }"></span></a>
                 </li>
                 <li id="headerLogout" class="headerLogout">
                     <a href="/login/userLogout"><span>[退出]</span></a>|
