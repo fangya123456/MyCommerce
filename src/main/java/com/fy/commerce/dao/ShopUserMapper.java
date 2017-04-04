@@ -4,7 +4,6 @@ import com.fy.commerce.model.ShopUser;
 import com.fy.commerce.model.ShopUserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 public interface ShopUserMapper {
     int countByExample(ShopUserExample example);

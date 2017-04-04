@@ -13,9 +13,13 @@
              type: "POST",
              url: "/loginPage/userLogin",
              data: $("#loginForm").serialize(),// 你的formid
-             async: true,
+             async: false,
              success: function (res) {
-                 alert(res);
+                if (res.data.equals("OK")){
+                    alert(res.data);
+                }else {
+                    alert(res.data);
+                }
              }
          });
      });

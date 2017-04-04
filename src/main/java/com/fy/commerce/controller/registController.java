@@ -9,11 +9,14 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by ya.fang on 2017/1/11.
@@ -27,16 +30,23 @@ public class registController {
     @Autowired
     private IUserService userService;
 
+    /**
+     * 用于处理Date类型参数处理
+     * @return
+     */
+    @InitBinder
+    protected  void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+
+    }
+
     @ResponseBody
     @RequestMapping(value = "/insertUserInfo", method = RequestMethod.POST)
     public Result insertUserInfo(@ModelAttribute ShopUser user, HttpServletRequest request){
 
-        int id = 0;
-        if(userService.findUserInfoByLoginInfo(user) == null){
-            user.setPassword(CipherUtil.generatePassword(user.getPassword()));
-            id = userService.addUserInfoByExample(user);
-        }
-        return new Result(200, id);
+        user.setPassword(CipherUtil.generatePassword(user.getPassword()));
+        return new Result(200, userService.addUserInfoByExample(user));
     }
 
     @ResponseBody

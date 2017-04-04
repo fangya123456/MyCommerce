@@ -6,11 +6,9 @@ import com.fy.commerce.model.ShopUserExample;
 import com.fy.commerce.service.api.IUserService;
 import com.fy.commerce.utils.CipherUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.connection.RedisServerCommands;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 

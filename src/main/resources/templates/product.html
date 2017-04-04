@@ -33,10 +33,10 @@
             <div class="topNav clearfix" th:if="${user_login ==null}">
                 <ul>
                     <li id="headerLogin" class="headerLogin" style="display: list-item;">
-                        <a href="/login.html">登录</a>|
+                        <a href="/login">登录</a>|
                     </li>
                     <li id="headerRegister" class="headerRegister" style="display: list-item;">
-                        <a href="/regist.html">注册</a>|
+                        <a href="/regist">注册</a>|
                     </li>
                     <li>
                         <a>会员中心</a>|
@@ -54,7 +54,7 @@
                     <a href="#"><span th:text="${user_login.userName }"></span></a>
                 </li>
                 <li id="headerLogout" class="headerLogout">
-                    <a href="/login/userLogout"><span>[退出]</span></a>|
+                    <a href="/loginPage/userLogout"><span>[退出]</span></a>|
                 </li>
                 <li>
                     <a>会员中心</a>|

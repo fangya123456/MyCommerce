@@ -7,10 +7,9 @@
 
     <link rel="stylesheet" href="/css/page/common.css"/>
     <link rel="stylesheet" href="/css/page/register.css"/>
-
-
-    <script src="/js/tool/bootstrap.min.js"/>
+    <!--<script src="/js/tool/bootstrap.min.js"/>-->
     <script src="/js/tool/jquery.js"/>
+    <script src="/js/tool/laydate.js"/>
     <script src="/js/regist.js"/>
 
 </head>
@@ -36,12 +35,6 @@
                 </li>
                 <li id="headerRegister" class="headerRegister" style="display: list-item;">
                     <a href="/regist">注册</a>|
-                </li>
-                <li id="headerUsername" class="headerUsername">
-                    <a href="#"></a>
-                </li>
-                <li id="headerLogout" class="headerLogout">
-                    <a href="#">[退出]</a>|
                 </li>
                 <li>
                     <a>会员中心</a>|
@@ -102,7 +95,7 @@
                             <tr>
                                 <th><span class="requiredField">*</span>用户名:</th>
                                 <td>
-                                    <input type="text" id="username" name="username" class="text" maxlength="20" required="required"/>
+                                    <input type="text" id="username" name="userName" class="text" maxlength="20" required="required"/>
                                 </td>
                             </tr>
                             <tr>
@@ -137,7 +130,7 @@
                                             <input type="radio" name="sex" class="sex" value="1" />男
                                         </label>
                                         <label>
-                                            <input type="radio" name="sex" class="0" />女
+                                            <input type="radio" name="sex" class="sex" value="0"/>女
                                         </label>
                                     </span>
                                 </td>
@@ -145,13 +138,20 @@
                             <tr>
                                 <th>出生日期:</th>
                                 <td>
-                                    <input type="date" id="birthday" name="birthday" class="text" />
+                                    <!--<input type="text" id="birthday" name="birthday" class="text" />-->
+                                    <input name="birthday" placeholder="请输入日期" class="text" onclick="laydate()"/>
                                 </td>
                             </tr>
                             <tr>
-                                <th>地址:</th>
+                                <th><span class="requiredField">*</span>电&nbsp;&nbsp;话:</th>
                                 <td>
-                                    <input type="text" id="name" name="addr" class="text" maxlength="200"/>
+                                    <input type="text" name="phone" class="text" maxlength="200" required="required"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>地&nbsp;&nbsp;址:</th>
+                                <td>
+                                    <input type="text" id="name" name="address" class="text" maxlength="200"/>
                                 </td>
                             </tr>
                             <tr>

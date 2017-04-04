@@ -99,17 +99,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.fy.commerce.model.CategorySecond" >
-    insert into category_second (id, category_second_name, category_id
+    <selectKey resultType="java.lang.Short" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+    insert into category_second (category_second_name, category_id
       )
-    values (#{id,jdbcType=INTEGER}, #{categorySecondName,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}
+    values (#{categorySecondName,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.fy.commerce.model.CategorySecond" >
+    <selectKey resultType="java.lang.Short" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
     insert into category_second
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="categorySecondName != null" >
         category_second_name,
       </if>
@@ -118,9 +121,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="categorySecondName != null" >
         #{categorySecondName,jdbcType=VARCHAR},
       </if>
