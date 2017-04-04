@@ -1,7 +1,6 @@
 
 function add_submit() {
-
-        /*$.ajax({
+        $.ajax({
             cache: true,
             type: "POST",
             url: "/regist/insertUserInfo",
@@ -17,20 +16,8 @@ function add_submit() {
                 }
                 return true;
             }
-        });*/
-    $.ajax({
-        type:'post',
-        url:'/login/acceptList',
-        data: {list1:[1,2], list2:[3,4,5]},
-        dataType:'text',//服务器返回的数据类型 可选XML ,Json jsonp script htmltext等
-        success:function(msg){
-        },
-        error:function(){
-            alert('error');
-        }
-    });
+        });
 }
-
 
 //jQuery 注册验证
 $(function(){
@@ -95,5 +82,26 @@ $(function(){
                 });
             }
         }
+    });
+
+
+    $(".btn_submit").click(function () {
+
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: "/regist/insertUserInfo",
+            data: $("#registerForm").serialize(),// 你的formid
+            async: false,
+            success: function (res) {
+                if (res.data != null && res.data == 1) {
+                    alert("请等待激活！");
+                    self.location="/login";
+                } else {
+                    alert("注册失败！");
+                    self.location="/regist";
+                }
+            }
+        });
     });
 });
