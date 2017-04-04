@@ -7,19 +7,22 @@
      /* $.post('/login/userLogin', $("#loginForm").serialize(),function (res) {
       alert(res.location);
       });*/
-     $("#userLogin").click(function () {
+     $(".login_btn").click(function () {
          $.ajax({
              cache: true,
              type: "POST",
-             url: "/loginPage/userLogin",
+             url: "/login/userLogin",
              data: $("#loginForm").serialize(),// 你的formid
              async: false,
              success: function (res) {
-                if (res.data.equals("OK")){
-                    alert(res.data);
-                }else {
-                    alert(res.data);
-                }
+                 alert(res.data);
+                 if (res.data.toString() == "OK") {
+                     alert("111111");
+                     self.location="/index";
+                 } else {
+                     alert(res.data);
+                     self.location="/login";
+                 }
              }
          });
      });

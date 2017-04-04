@@ -2,6 +2,7 @@ package com.fy.commerce.controller;
 
 import com.fy.commerce.model.ShopUser;
 import com.fy.commerce.service.api.IUserService;
+import com.fy.commerce.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 @Controller
 @SessionAttributes({"USER_LOGIN","state"})
-@RequestMapping("/loginPage")
+@RequestMapping("/login")
 @Api(value = "登录信息控制", description = "登录信息控制")
 public class loginController {
 
@@ -30,21 +31,22 @@ public class loginController {
     @Autowired
     private IUserService userService;
 
-    @ApiIgnore
+    @ResponseBody
     @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
     @ApiOperation(value = "用户登录", notes = "用户登录控制")
-    public String userLogin(@ModelAttribute ShopUser user, ModelMap modelMap, HttpServletRequest request){
+    public Result userLogin(@ModelAttribute ShopUser user, ModelMap modelMap, HttpServletRequest request){
         //加密验证后登陆
         int loginState = userService.checkLoginInfo(user);
-        modelMap.addAttribute("USER_LOGIN", user);
-        modelMap.addAttribute("state", loginState);
-        if (loginState < 0){
+        String errMsg = "OK";
+        if (loginState < 1){
             log.info("登陆验证失败！");
-            return "redirect:/login";
+            errMsg = "登陆验证失败！";
         }else{
             log.info("登陆验证成功！");
-            return "redirect:/index";  //登录成功
+            modelMap.addAttribute("USER_LOGIN", user);
+            modelMap.addAttribute("state", loginState+"");
         }
+        return new Result(200, errMsg);
     }
 
     @ApiIgnore
@@ -55,7 +57,6 @@ public class loginController {
         int beginIdx = ("http://"+request.getLocalAddr().toString()).length();
         String path = request.getHeader("Referer").substring(beginIdx);
         sessionStatus.setComplete();
-        request.getSession().invalidate();
         log.info("退出登录");
         return  path;
     }

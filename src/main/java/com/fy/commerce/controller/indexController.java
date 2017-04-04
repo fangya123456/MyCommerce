@@ -30,7 +30,6 @@ public class indexController {
     public String index(Model model, HttpServletRequest request){
 
         log.info("index:访问首页");
-
         String state = (String) request.getSession().getAttribute("state");
         if(state != null && state.equals("1")){
             ShopUser user = (ShopUser) request.getSession().getAttribute("USER_LOGIN");
@@ -44,17 +43,6 @@ public class indexController {
     public String login(Model model, HttpServletRequest request){
 
         log.info("login:访问登录页");
-        //ShopUser user = (ShopUser)request.getSession().getAttribute("USER_LOGIN");
-        String state = (String)request.getSession().getAttribute("state");
-
-        if (state.equals("-1")){
-            model.addAttribute("errMsg", "用户名或密码为空");
-        }else if(state.equals("-2")){
-            model.addAttribute("errMsg", "用户名不存在");
-        }else if (state.equals("-3")){
-            model.addAttribute("errMsg", "密码错误");
-        }
-
         return "login";
     }
 
@@ -62,6 +50,7 @@ public class indexController {
     @RequestMapping(value = "/regist", method = {RequestMethod.GET})
     public String regist(Model model, HttpServletRequest request){
 
+        log.info("login:访问用户注册页");
         return "regist";
     }
 
@@ -71,7 +60,7 @@ public class indexController {
         log.info("访问商城中心");
         ShopUser user = (ShopUser)request.getSession().getAttribute("USER_LOGIN");
         String state = (String)request.getSession().getAttribute("state");
-        if(user != null && state.equals("1")){
+        if(user != null && state != null && state.equals("1")){
             model.addAttribute("user_login",user);
         }
         return "product";
