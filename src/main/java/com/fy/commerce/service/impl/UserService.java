@@ -5,11 +5,13 @@ import com.fy.commerce.model.ShopUser;
 import com.fy.commerce.model.ShopUserExample;
 import com.fy.commerce.service.api.IUserService;
 import com.fy.commerce.utils.CipherUtil;
+import com.fy.commerce.utils.ResultCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -43,6 +45,22 @@ public class UserService implements IUserService {
         return null;
     }
 
+    @Override
+    public Boolean checkRegistInfo(ShopUser user) {
+        if (user != null){
+            ShopUserExample shopUserExample = new ShopUserExample();
+            if (user.getUserName() != null){
+                shopUserExample.createCriteria().andUserNameEqualTo(user.getUserName());
+            }else if(user.getEmail() != null){
+                shopUserExample.createCriteria().andEmailEqualTo(user.getEmail());
+            }
+            if (userMapper.selectByExample(shopUserExample).size() == 1){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int checkLoginInfo(ShopUser user) {
         String userInfo = user.getUserName();
         String password = user.getPassword();
@@ -53,17 +71,17 @@ public class UserService implements IUserService {
             } else {
                 shopUserExample.createCriteria().andUserNameEqualTo(userInfo);
             }
-            ShopUser user1 = userMapper.selectByExample(shopUserExample).get(0);
-            if (user1 == null){
-                return -2; // 用户名不存在
+            List<ShopUser> list = userMapper.selectByExample(shopUserExample);
+            if (list.size() == 0){
+                return ResultCode.LOGIN_STATE_FAIL_2; // 用户名不存在或用户名错误
             }else{
-                if (!CipherUtil.validatePassword(user1.getPassword(), password)){
-                    return -3; //密码不正确
+                if (!CipherUtil.validatePassword(list.get(0).getPassword(), password)){
+                    return ResultCode.LOGIN_STATE_FAIL_3; //密码不正确
                 }
-                return 1; //登陆成功
+                return ResultCode.LOGIN_STATE_SUCCESS; //登陆成功
             }
         }
-        return -1; //用户名或密码不能为空
+        return ResultCode.LOGIN_STATE_FAIL_1; //用户名或密码不能为空
     }
 
     @Override

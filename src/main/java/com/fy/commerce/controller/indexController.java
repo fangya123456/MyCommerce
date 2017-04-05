@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.session.web.http.SessionEventHttpSessionListenerAdapter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,10 +28,10 @@ public class indexController {
 
     @ApiIgnore
     @RequestMapping(value = "/index", method = {RequestMethod.GET})
-    public String index(Model model, HttpServletRequest request){
+    public String index(Model model, HttpServletRequest request, HttpSession session){
 
         log.info("index:访问首页");
-        String state = (String) request.getSession().getAttribute("state");
+        String state = (String) session.getAttribute("STATE");
         if(state != null && state.equals("1")){
             ShopUser user = (ShopUser) request.getSession().getAttribute("USER_LOGIN");
             model.addAttribute("user_login",user);
@@ -59,7 +60,7 @@ public class indexController {
     public String product(Model model, HttpServletRequest request){
         log.info("访问商城中心");
         ShopUser user = (ShopUser)request.getSession().getAttribute("USER_LOGIN");
-        String state = (String)request.getSession().getAttribute("state");
+        String state = (String)request.getSession().getAttribute("STATE");
         if(user != null && state != null && state.equals("1")){
             model.addAttribute("user_login",user);
         }

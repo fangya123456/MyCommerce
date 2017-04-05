@@ -40,9 +40,7 @@ public class Result<T> implements Serializable {
         this.data = data;
     }
 
-    public Result() {
-
-    }
+    public Result() {}
 
     public int getCode() {
         return code;

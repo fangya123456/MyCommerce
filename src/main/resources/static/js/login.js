@@ -15,12 +15,11 @@
              data: $("#loginForm").serialize(),// 你的formid
              async: false,
              success: function (res) {
-                 alert(res.data);
-                 if (res.data.toString() == "OK") {
-                     alert("111111");
-                     self.location="/index";
+                 if (res.data == 1) {
+                     $.get("/index");
+                     self.location = "/index";
                  } else {
-                     alert(res.data);
+                     alert(res.message);
                      self.location="/login";
                  }
              }

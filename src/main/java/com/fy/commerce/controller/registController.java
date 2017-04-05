@@ -52,12 +52,11 @@ public class registController {
     @ResponseBody
     @RequestMapping(value = "/validateUsername", method = RequestMethod.GET)
     @ApiOperation(value = "校验用户信息", notes = "校验用户信息接口")
-    public Result validateUsername(@RequestParam("username") String username){
+    public Result validateUsername(@RequestParam("userName") String username){
         log.info("username:"+username);
         ShopUser user = new ShopUser();
         user.setUserName(username);
-        user = userService.findUserInfoByLoginInfo(user);
-        if (user != null){
+        if (userService.checkRegistInfo(user)){
             return new Result(200,0);
         }
         return new Result(200, 1);
@@ -71,12 +70,9 @@ public class registController {
         log.info("email:"+email);
         ShopUser user = new ShopUser();
         user.setEmail(email);
-        user = userService.findUserInfoByLoginInfo(user);
-        if (user != null){
+        if (userService.checkRegistInfo(user)){
             return new Result(200,0);
         }
         return new Result(200, 1);
     }
-
-
 }

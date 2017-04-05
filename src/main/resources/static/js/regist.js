@@ -11,8 +11,9 @@ $(function(){
                 $(this).parent().append(errMsg);
                 $(".formtip").css({"color":"red", "font-size":"14px"});
             }else {
-                $.get('/regist/validateUsername?username='+ $("#username").val(), function (res) {
+                $.get('/regist/validateUsername?userName='+ $("#username").val(), function (res) {
                    if(res.data==0){
+                       alert(res.data)
                        var errMsg = "<span class='formtip'>用户名已注册！</span>";
                        $("#username").parent().append(errMsg);
                        $(".formtip").css({"color":"red", "font-size":"14px"});

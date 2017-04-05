@@ -12,6 +12,8 @@ public interface IUserService {
 
     ShopUser findUserInfoByLoginInfo(ShopUser user);
 
+    Boolean checkRegistInfo(ShopUser user);
+
     int checkLoginInfo(ShopUser user);
 
     int addUserInfoByExample(ShopUser user);
