@@ -2,6 +2,7 @@ package com.fy.commerce.controller;
 
 import com.fy.commerce.model.ShopUser;
 import com.fy.commerce.service.api.IUserService;
+import com.fy.commerce.utils.CaptchaUtil;
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,6 +45,8 @@ public class indexController {
     public String login(Model model, HttpServletRequest request){
 
         log.info("login:访问登录页");
+        String validateCode = CaptchaUtil.createCode();
+        model.addAttribute("validateCode",validateCode);
         return "login";
     }
 

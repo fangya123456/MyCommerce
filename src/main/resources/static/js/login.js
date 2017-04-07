@@ -2,11 +2,22 @@
  * Created by ya.fang on 2017/1/9.
  */
 
+function createCode() {
+    $.ajax({
+        type: "GET",
+        url: "/login/createCode",
+        async: true,
+        success: function (res) {
+            alert(res.data);
+            $("#checkCode").val(res.data);
+        }
+    });
+}
+
  $(function () {
+    //createCode();
+     $("#updateCode")
      //支持Enter键登录
-     /* $.post('/login/userLogin', $("#loginForm").serialize(),function (res) {
-      alert(res.location);
-      });*/
      $(".login_btn").click(function () {
          $.ajax({
              cache: true,

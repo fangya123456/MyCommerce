@@ -119,7 +119,10 @@
                                 <td>
                                 <span class="fieldSet">
                                     <input type="text" id="captcha" name="captcha" class="text captcha" maxlength="4" autocomplete="off"/>
-                                    <img id="captchaImage" class="captchaImage" src="" title="点击更换验证码" />
+                                    <!--<img id="captchaImage" class="captchaImage" src="" title="点击更换验证码" />-->
+                                    <!--<input type="text" id="checkCode" class="code" style="width: 55px" th:value="$"/>-->
+                                    <span id="checkCode" class="code" style="width: 55px" th:text="${validateCode}"></span>
+                                    <a href="#" class="updateCode" id="updateCode">看不清楚</a>
                                 </span>
                             </td>
                             </tr>

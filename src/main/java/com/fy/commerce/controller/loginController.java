@@ -2,6 +2,7 @@ package com.fy.commerce.controller;
 
 import com.fy.commerce.model.ShopUser;
 import com.fy.commerce.service.api.IUserService;
+import com.fy.commerce.utils.CaptchaUtil;
 import com.fy.commerce.utils.Result;
 import com.fy.commerce.utils.ResultCode;
 import io.swagger.annotations.Api;
@@ -9,7 +10,9 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
@@ -74,4 +77,14 @@ public class loginController {
         log.info("退出登录");
         return  path;
     }
+
+    @ApiIgnore
+    @RequestMapping(value = "/createCode", method = RequestMethod.GET)
+    @ApiOperation(value = "生成验证码", notes = "生成验证码控制")
+    public Result createCode(Model model, HttpServletRequest request){
+
+        return  new Result(ResultCode.RESULT_CODE_C200, CaptchaUtil.createCode());
+    }
+
+
 }
