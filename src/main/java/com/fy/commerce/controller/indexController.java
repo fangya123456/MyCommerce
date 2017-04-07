@@ -47,6 +47,8 @@ public class indexController {
         log.info("login:访问登录页");
         String validateCode = CaptchaUtil.createCode();
         model.addAttribute("validateCode",validateCode);
+        request.getSession().setAttribute("SESSION_CODE_NAME",validateCode);
+
         return "login";
     }
 

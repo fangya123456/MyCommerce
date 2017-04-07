@@ -8,15 +8,16 @@ function createCode() {
         url: "/login/createCode",
         async: true,
         success: function (res) {
-            alert(res.data);
-            $("#checkCode").val(res.data);
+            $("#checkCode").text(res.data);
         }
     });
 }
 
  $(function () {
     //createCode();
-     $("#updateCode")
+     $("#updateCode").click(function () {
+         createCode();
+     });
      //支持Enter键登录
      $(".login_btn").click(function () {
          $.ajax({
