@@ -4,10 +4,13 @@ import com.fy.commerce.model.ShopUser;
 import com.fy.commerce.service.api.IUserService;
 import com.fy.commerce.utils.CipherUtil;
 import com.fy.commerce.utils.Result;
+import com.fy.commerce.utils.ResultCode;
+import com.fy.commerce.vo.UserInfoVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,7 @@ import java.util.Date;
  */
 @Controller
 @RequestMapping("/regist")
+@SessionAttributes({"SESSION_CODE_NAME"})
 @Api(value = "用户注册信息", description = "用户注册信息控制")
 public class registController {
 
@@ -43,10 +47,32 @@ public class registController {
 
     @ResponseBody
     @RequestMapping(value = "/insertUserInfo", method = RequestMethod.POST)
-    public Result insertUserInfo(@ModelAttribute ShopUser user, HttpServletRequest request){
+    public Result insertUserInfo(@ModelAttribute UserInfoVo registerUser, HttpServletRequest request){
 
-        user.setPassword(CipherUtil.generatePassword(user.getPassword()));
-        return new Result(200, userService.addUserInfoByExample(user));
+        String errMsg = "OK";
+        int resultCode = ResultCode.RESULT_CODE_C200;
+        int registerState = 0;
+        try{
+            String validateCode = (String )request.getSession().getAttribute("SESSION_CODE_NAME");
+            if (validateCode == null || !registerUser.getCaptcha().toLowerCase().equals(validateCode.toLowerCase())){
+                log.info("注册验证失败！");
+                errMsg = "验证码错误！";
+            }else{
+                registerUser.setPassword(CipherUtil.generatePassword( registerUser.getPassword()));
+                ShopUser user = new ShopUser();
+                BeanUtils.copyProperties(registerUser, user);
+                if (userService.addUserInfoByExample(user) > 0){
+                    registerState = 1;
+                    errMsg = "注册成功！";
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            errMsg = "服务器异常";
+            resultCode = ResultCode.RESULT_CODE_C500;
+        }finally {
+            return new Result(resultCode, errMsg, registerState);
+        }
     }
 
     @ResponseBody

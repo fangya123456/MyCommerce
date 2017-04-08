@@ -2,16 +2,7 @@
  * Created by ya.fang on 2017/1/9.
  */
 
-function createCode() {
-    $.ajax({
-        type: "GET",
-        url: "/login/createCode",
-        async: true,
-        success: function (res) {
-            $("#checkCode").text(res.data);
-        }
-    });
-}
+
 
  $(function () {
     //createCode();

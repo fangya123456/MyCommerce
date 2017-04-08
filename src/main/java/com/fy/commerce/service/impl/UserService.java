@@ -75,7 +75,11 @@ public class UserService implements IUserService {
             if (list.size() == 0){
                 return ResultCode.LOGIN_STATE_FAIL_2; // 用户名不存在或用户名错误
             }else{
-                if (!CipherUtil.validatePassword(list.get(0).getPassword(), password)){
+                if (list.get(0).getIsDel() == 1){
+                    return ResultCode.LOGIN_STATE_FAIL_5; //用户已注销
+                } else if (list.get(0).getState() == 0){
+                    return ResultCode.LOGIN_STATE_FAIL_4; //用户未激活
+                } else if (!CipherUtil.validatePassword(list.get(0).getPassword(), password)){
                     return ResultCode.LOGIN_STATE_FAIL_3; //密码不正确
                 }
                 return ResultCode.LOGIN_STATE_SUCCESS; //登陆成功
@@ -89,7 +93,7 @@ public class UserService implements IUserService {
     public int addUserInfoByExample(ShopUser user){
 
         user.setCode(UUID.randomUUID().toString());
-        user.setState(0);
+        user.setState(1);  //暂时默认注册即激活，后期可以设置邮箱或短信验证
         user.setIsDel(0);
 
         //SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式

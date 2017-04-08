@@ -1,27 +1,5 @@
-
-function add_submit() {
-        $.ajax({
-            cache: true,
-            type: "POST",
-            url: "/regist/insertUserInfo",
-            data: $("#registerForm").serialize(),// 你的formid
-            async: false,
-            success: function (res) {
-                if (res.data != null && res.data == 1) {
-                    alert("请等待激活！");
-                    self.location="/login";
-                } else {
-                    alert("注册失败！");
-                    self.location="/regist";
-                }
-                return true;
-            }
-        });
-}
-
 //jQuery 注册验证
 $(function(){
-
     $(":input.text").blur(function(){
         //判断一下鼠标离开谁了
         if($(this).is("#username")){
@@ -32,8 +10,9 @@ $(function(){
                 $(this).parent().append(errMsg);
                 $(".formtip").css({"color":"red", "font-size":"14px"});
             }else {
-                $.get('/regist/validateUsername?username='+ $("#username").val(), function (res) {
+                $.get('/regist/validateUsername?userName='+ $("#username").val(), function (res) {
                    if(res.data==0){
+                       alert(res.data)
                        var errMsg = "<span class='formtip'>用户名已注册！</span>";
                        $("#username").parent().append(errMsg);
                        $(".formtip").css({"color":"red", "font-size":"14px"});
@@ -87,6 +66,9 @@ $(function(){
 
     $(".btn_submit").click(function () {
 
+        $("#updateCode").click(function () {
+            createCode();
+        });
         $.ajax({
             cache: true,
             type: "POST",
@@ -94,11 +76,12 @@ $(function(){
             data: $("#registerForm").serialize(),// 你的formid
             async: false,
             success: function (res) {
+                var message = res.message;
                 if (res.data != null && res.data == 1) {
-                    alert("请等待激活！");
+                    alert(message);
                     self.location="/login";
                 } else {
-                    alert("注册失败！");
+                    alert(message);
                     self.location="/regist";
                 }
             }

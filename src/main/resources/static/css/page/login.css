@@ -49,14 +49,8 @@ div.login th {
 
 div.login .captcha {
 	width: 130px;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 	ime-mode: disabled;
-}
-
-div.login .captchaImage {
-	margin-left: 10px;
-	vertical-align: middle;
-	cursor: pointer;
 }
 
 div.login .submit {
@@ -90,4 +84,23 @@ div.login .register dd {
 
 div.login .register dd a {
 	color: #3164af
+}
+
+div.login .code
+{
+	/*background:url(code_bg.jpg);*/
+	font-family:Arial;
+	font-style:italic;
+	color:blue;
+	font-size:18px;
+	border:0;
+	padding:2px 3px;
+	letter-spacing:3px;
+	font-weight:bolder;
+	cursor:pointer;
+	width:100px;
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	vertical-align:middle;
 }

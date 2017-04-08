@@ -5,7 +5,7 @@ import com.fy.commerce.service.api.IUserService;
 import com.fy.commerce.utils.CaptchaUtil;
 import com.fy.commerce.utils.Result;
 import com.fy.commerce.utils.ResultCode;
-import com.fy.commerce.vo.LoginUserVo;
+import com.fy.commerce.vo.UserInfoVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
@@ -37,21 +36,27 @@ public class loginController {
     @ResponseBody
     @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
     @ApiOperation(value = "用户登录", notes = "用户登录控制")
-    public Result userLogin(@ModelAttribute LoginUserVo loginUser, ModelMap modelMap, HttpServletRequest request){
+    public Result userLogin(@ModelAttribute UserInfoVo loginUser, ModelMap modelMap, HttpServletRequest request){
         //加密验证后登陆
         String errMsg = "OK";
         int resultCode = ResultCode.RESULT_CODE_C200;
         int loginState = 0;
         try{
             String validateCode = (String )request.getSession().getAttribute("SESSION_CODE_NAME");
-            if (validateCode == null || !loginUser.getCaptcha().equals(validateCode)){
+            if (validateCode == null || !loginUser.getCaptcha().toLowerCase().equals(validateCode.toLowerCase())){
                 log.info("登陆验证失败！");
                 errMsg = "验证码错误！";
             }else {
                 ShopUser user = new ShopUser();
                 BeanUtils.copyProperties(loginUser, user);
                 loginState = userService.checkLoginInfo(user);
-                if (loginState == ResultCode.LOGIN_STATE_FAIL_1){
+                if (loginState == ResultCode.LOGIN_STATE_FAIL_4){
+                    log.info("登陆验证失败！");
+                    errMsg = "用户未激活！";
+                }else if (loginState == ResultCode.LOGIN_STATE_FAIL_5){
+                    log.info("登陆验证失败！");
+                    errMsg = "用户已注销！";
+                }else if (loginState == ResultCode.LOGIN_STATE_FAIL_1){
                     log.info("登陆验证失败！");
                     errMsg = "登录用户名或密码为空！";
                 }else if (loginState == ResultCode.LOGIN_STATE_FAIL_2){
@@ -95,6 +100,5 @@ public class loginController {
         model.addAttribute("SESSION_CODE_NAME", validateCode);
         return  new Result(ResultCode.RESULT_CODE_C200, validateCode);
     }
-
 
 }

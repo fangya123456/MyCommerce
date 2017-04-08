@@ -17,5 +17,7 @@ public interface ResultCode {
     int LOGIN_STATE_FAIL_1 = -1;   //登录用户名或密码为空
     int LOGIN_STATE_FAIL_2 = -2;   //登录用户名不存在或用户名错误
     int LOGIN_STATE_FAIL_3 = -3;   //登录密码错误
+    int LOGIN_STATE_FAIL_4 = -4;   //用户未激活
+    int LOGIN_STATE_FAIL_5 = -5;   //用户已注销
 
 }

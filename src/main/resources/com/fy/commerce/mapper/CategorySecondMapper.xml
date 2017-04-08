@@ -100,7 +100,7 @@
   </delete>
   <insert id="insert" parameterType="com.fy.commerce.model.CategorySecond" >
     <selectKey resultType="java.lang.Short" order="AFTER" keyProperty="id">
-      SELECT LAST_INSERT_ID() AS id
+      SELECT LAST_INSERT_ID()
     </selectKey>
     insert into category_second (category_second_name, category_id
       )
@@ -109,7 +109,7 @@
   </insert>
   <insert id="insertSelective" parameterType="com.fy.commerce.model.CategorySecond" >
     <selectKey resultType="java.lang.Short" order="AFTER" keyProperty="id">
-      SELECT LAST_INSERT_ID() AS id
+      SELECT LAST_INSERT_ID()
     </selectKey>
     insert into category_second
     <trim prefix="(" suffix=")" suffixOverrides="," >

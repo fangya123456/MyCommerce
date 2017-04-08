@@ -76,3 +76,14 @@ function show_loading()
         }
     }
 })(window.navigator)
+
+function createCode() {
+    $.ajax({
+        type: "GET",
+        url: "/login/createCode",
+        async: true,
+        success: function (res) {
+            $("#checkCode").text(res.data);
+        }
+    });
+}

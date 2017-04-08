@@ -98,15 +98,15 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.fy.commerce.model.Category" >
-    <selectKey resultType="java.lang.Short" order="AFTER" keyProperty="id">
-      SELECT LAST_INSERT_ID() AS id
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID()
     </selectKey>
     insert into category (category_name)
     values (#{categoryName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.fy.commerce.model.Category" >
-    <selectKey resultType="java.lang.Short" order="AFTER" keyProperty="id">
-      SELECT LAST_INSERT_ID() AS id
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID()
     </selectKey>
     insert into category
     <trim prefix="(" suffix=")" suffixOverrides="," >

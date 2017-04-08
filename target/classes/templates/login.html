@@ -5,13 +5,11 @@
     <meta charset="UTF-8" />
     <title>会员登录</title>
 
-    <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"/>-->
     <link rel="stylesheet" href="/css/page/common.css"/>
     <link rel="stylesheet" href="/css/page/login.css"/>
 
-
-    <script src="/js/tool/bootstrap.min.js"/>
     <script src="/js/tool/jquery.js"/>
+    <script src="/js/tool/common.js"/>
     <script src="/js/login.js"/>
 </head>
 <body>
@@ -99,7 +97,7 @@
                     <strong>会员登录</strong>USER LOGIN
                 </div>
                 <!-- 登录表单 -->
-                <form id="loginForm"  method="post" novalidate="novalidate" action="">
+                <form id="loginForm"  method="post" action="">
                     <table>
                         <tbody>
                             <tr>
@@ -118,8 +116,9 @@
                                 <th>验证码:</th>
                                 <td>
                                 <span class="fieldSet">
-                                    <input type="text" id="captcha" name="captcha" class="text captcha" maxlength="4" autocomplete="off"/>
-                                    <img id="captchaImage" class="captchaImage" src="" title="点击更换验证码" />
+                                    <input type="text" id="captcha" name="captcha" class="text captcha" maxlength="6" autocomplete="off"/>
+                                    <span id="checkCode" class="code" style="width: 55px" th:text="${validateCode}"></span>
+                                    <a href="#" class="updateCode" id="updateCode">看不清楚</a>
                                 </span>
                             </td>
                             </tr>
@@ -137,7 +136,8 @@
                             <tr>
                                  <th>&nbsp;</th>
                                 <td>
-                                    <input type="submit" id="userLogin" name="submit" class="text" value="登录"/>
+                                    <!--<input type="submit" id="userLogin" name="submit" class="text" value="登录"/>-->
+                                    <button type="button" class="login_btn">登录</button>
                                 </td>
                             </tr>
                             <tr class="register">

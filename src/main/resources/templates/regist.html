@@ -7,8 +7,9 @@
 
     <link rel="stylesheet" href="/css/page/common.css"/>
     <link rel="stylesheet" href="/css/page/register.css"/>
-    <!--<script src="/js/tool/bootstrap.min.js"/>-->
+
     <script src="/js/tool/jquery.js"/>
+    <script src="/js/tool/common.js"/>
     <script src="/js/tool/laydate.js"/>
     <script src="/js/regist.js"/>
 
@@ -89,7 +90,7 @@
                 <div class="title">
                     <strong>会员注册</strong>USER REGISTER
                 </div>
-                <form id="registerForm"  method="post" action="/regist/insertUserInfo">
+                <form id="registerForm"  method="post" action="">
                     <table>
                         <tbody>
                             <tr>
@@ -158,8 +159,9 @@
                                 <th><span class="requiredField">*</span>验证码:</th>
                                 <td>
                                     <span class="fieldSet">
-                                        <input type="text" id="captcha" name="captcha" class="text captcha" maxlength="4" autocomplete="off" required="required"/>
-                                        <img id="captchaImage" class="captchaImage" src="#" title="点击更换验证码"/>
+                                        <input type="text" id="captcha" name="captcha" class="text captcha" maxlength="6" autocomplete="off" required="required"/>
+                                        <span id="checkCode" class="code" style="width: 55px" th:text="${validateCode}"></span>
+                                        <a href="#" class="updateCode" id="updateCode">看不清楚</a>
                                     </span>
                                 </td>
                             </tr>
