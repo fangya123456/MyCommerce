@@ -5,7 +5,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.http.SessionEventHttpSessionListenerAdapter;
@@ -21,17 +23,22 @@ import java.util.List;
 @SpringBootApplication
 @ServletComponentScan(basePackageClasses = {MyHttpSessionListener.class})
 @EnableRedisHttpSession
-public class Application {
+public class Application extends SpringBootServletInitializer {
 
     private static Logger logger = LogManager.getLogger(Application.class);
+
     /**
      * Start
      */
-    public static void main(String[] args) {
+    public static void main(String[] args){
         SpringApplication.run(Application.class, args);
         logger.info("====SpringBoot Start Success====");
     }
 
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder){
+        return builder.sources(Application.class);
+    }
     @Bean
     public SessionEventHttpSessionListenerAdapter sessionEventHttpSessionListenerAdapter(){
 
@@ -40,3 +47,4 @@ public class Application {
         return new SessionEventHttpSessionListenerAdapter(list);
     }
 }
+

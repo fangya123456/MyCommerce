@@ -1,9 +1,8 @@
 package com.fy.commerce.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class ShopUser implements Serializable{
+public class ShopUser {
     private Integer id;
 
     private String userName;
