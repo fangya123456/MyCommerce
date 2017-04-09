@@ -85,11 +85,11 @@ public class loginController {
     @ApiOperation(value = "退出登录", notes = "退出登录控制")
     public String userLogout(ModelMap model, HttpServletRequest request, SessionStatus sessionStatus){
         //刷新退出前页面
-        int beginIdx = ("http://"+request.getLocalAddr().toString()).length();
-        String path = request.getHeader("Referer").substring(beginIdx);
+
+        String[] path = request.getHeader("Referer").split("/");
         sessionStatus.setComplete();
         log.info("退出登录");
-        return  path;
+        return  path[path.length-1];
     }
 
     @ResponseBody
