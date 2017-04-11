@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -28,15 +30,12 @@ public class productController {
     @Autowired
     private IProductService productService;
 
-    public Result getAllProductInfo(){
-        return  null;
-    }
-
 
     @ResponseBody
     @RequestMapping(value = "/queryAllCategoryInfo", method = RequestMethod.GET)
     @ApiOperation(value = "获取商品分类信息", notes = "获取商品分类接口")
     public Result queryAllCategoryInfo(Model model){
+
 
         return new Result(200, productService.getCategoryAndCategorySecondInfo());
     }
@@ -44,10 +43,17 @@ public class productController {
     @ResponseBody
     @RequestMapping(value ="/queryAllProductInfo", method = RequestMethod.GET)
     @ApiOperation(value = "获取所有商品信息", notes = "获取所有商品信息接口")
-    public Result queryAllProductInfo(Model model){
+    public Result queryAllProductInfo(Model model, HttpServletRequest request){
 
-        List<Product> list = productService.getProductInfoByPage(1,10);
+        return new Result(200, productService.getCategoryAndCategorySecondInfo());
+    }
 
+    @ResponseBody
+    @RequestMapping(value ="/queryHotProductInfo", method = RequestMethod.GET)
+    @ApiOperation(value = "获取热门商品信息", notes = "获取热门商品信息接口")
+    public Result queryHotProductInfo(Model model, HttpServletRequest request){
+        log.info("获取热么们商品信息");
+        List<Product> list = productService.getHotProductInfoByPage(1,10);
         return new Result(200, list);
     }
 }

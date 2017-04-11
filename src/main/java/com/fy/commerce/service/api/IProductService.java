@@ -28,4 +28,6 @@ public interface IProductService {
 
     List<Product> getProductInfoByPage(int page, int pageSize);
 
+    List<Product> getHotProductInfoByPage(int page, int pageSize);
+
 }

@@ -78,7 +78,7 @@ public class ProductService implements IProductService {
         return categorySecondMapper.selectByExample(categorySecondExample);
     }
 
-    @Cacheable(value = "CACSI")
+    @Cacheable(value = "CategoryInfo")
     public Map<String, Object> getCategoryAndCategorySecondInfo(){
         //log.info("getCategoryAndCategorySecondInfo:=======缓存商品分类信息");
         Map<String, Object> map = new HashMap<>();
@@ -95,6 +95,7 @@ public class ProductService implements IProductService {
         return map;
     }
 
+    @Cacheable(value = "ProductInfo")
     public List<Product> getProductInfoByPage(int page, int pageSize){
 
         ProductExample productExample = new ProductExample();
@@ -103,4 +104,16 @@ public class ProductService implements IProductService {
         List<Product> productList = productMapper.selectByExample(productExample);
         return productList;
     }
+
+
+    public List<Product> getHotProductInfoByPage(int page, int pageSize){
+        ProductExample productExample = new ProductExample();
+        productExample.createCriteria().andIsHotEqualTo(1);
+        PageHelper.startPage(page, pageSize);
+        List<Product> hotProductList = productMapper.selectByExample(productExample);
+        return hotProductList;
+    }
+
+
+
 }
