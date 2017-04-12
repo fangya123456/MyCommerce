@@ -1023,7 +1023,7 @@ div.pagination span.firstPage {
 	width: 18px;
 	cursor: default;
 	border: 1px solid #cccccc;
-	background: url(/images/common.gif) -90px -180px no-repeat;
+	background: url(/images/common/common.gif) -90px -180px no-repeat;
 }
 
 div.pagination a.lastPage {

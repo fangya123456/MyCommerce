@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
-@WebFilter(filterName="myFilter",urlPatterns="/**")
+@WebFilter(filterName="myFilter",urlPatterns="/*")
 public class MyFilter implements Filter {
 
     @Value("${server.contextPath}")
@@ -22,27 +22,27 @@ public class MyFilter implements Filter {
 
     @Override
     public void init(FilterConfig config) throws ServletException {
-            System.out.println("过滤器初始化");
+
     }
 
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
-            System.out.println("执行过滤操作");
         HttpServletRequest httpServletRequest = (HttpServletRequest)request;
         String uri = httpServletRequest.getRequestURI();
 
-        if (uri.contains("static")){
-            request.getRequestDispatcher(contextPath + uri).forward(httpServletRequest, response);
+      /*  if (uri.equals("/product")){
+            String path = uri +"?page=1";
+            request.getRequestDispatcher(path).forward(httpServletRequest, response);
         }else {
-
             chain.doFilter(request, response);
-        }
+        }*/
+        chain.doFilter(request, response);
     }
 
     @Override
     public void destroy() {
-            System.out.println("过滤器销毁");
+
     }
 }

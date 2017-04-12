@@ -1,9 +1,13 @@
-package com.fy.commerce.model;
+package com.fy.commerce.vo;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class Product implements Serializable{
+/**
+ * Created by dell-pc on 2017/4/12.
+ */
+public class ProductInfoVo implements Serializable {
+
     private Integer id;
 
     private String productName;

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import springfox.documentation.annotations.ApiIgnore;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by ya.fang on 2017/1/12.
@@ -83,13 +84,16 @@ public class loginController {
     @ApiIgnore
     @RequestMapping(value = "/userLogout", method = RequestMethod.GET)
     @ApiOperation(value = "退出登录", notes = "退出登录控制")
-    public String userLogout(ModelMap model, HttpServletRequest request, SessionStatus sessionStatus){
+    public void userLogout(HttpServletRequest request, HttpServletResponse response,SessionStatus sessionStatus){
         //刷新退出前页面
-
         String[] path = request.getHeader("Referer").split("/");
         sessionStatus.setComplete();
         log.info("退出登录");
-        return  path[path.length-1];
+        try{
+            response.sendRedirect("/"+ path[path.length-1]);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @ResponseBody

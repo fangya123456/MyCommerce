@@ -3,10 +3,18 @@
  */
 
 $(function () {
-
-    var page = 1;
-    var pageSize = 20;
-    $.get("/product/queryAllProductInfo?page="+page+ "&pageSize=" + pageSize,function (res) {
+    /*var num =Number($("input.startPage").val());
+    var totalPage = Number($("input.totalPage").val());
+    var pageNum = 5;
+    //商品页数显示
+    var showNumPage = '';
+    for (var i=0; i<pageNum; i++){
+        showNumPage += "<a href='/product?page="+ num +"'>"+"<span class='num'>"+ num +"</span></a>";
+        if (num == totalPage) break;
+        num++;
+    }
+    $("a.nextPage").before(showNumPage);*/
+    $.get("/product/queryAllCategoryInfo",function (res) {
         if (res.data != null){
             var categoryInfo = res.data;
             var showInfo = ''
@@ -21,23 +29,4 @@ $(function () {
             $(".hotProductCategory").append(showInfo);
         }
     });
-
-
-
-
-   /* $.get("/product/queryAllProductInfo?page="+page+ "&pageSize=" + pageSize,function (res) {
-        if (res.data != null){
-            var productList = res.data;
-            var showInfo = ''
-            $.each(productList,function(key, productInfo){
-                var hrefElement = "<li><a href='"+"/product/detail?id="+ productInfo.id +">";
-                var imgElement = "<img src='"+productInfo.image+"' width='170' height='170' style='display: inline-block;'/>";
-                var spanElement_productName = "<span style='color:green'>"+productInfo.productName+"</span>";
-                var spanElement_productShopPrice = "<span style='color:green'>"+productInfo.shopPrice+"</span>";
-                showInfo += hrefElement+imgElement+spanElement_productName + spanElement_productShopPrice + "</li></a>";
-            });
-            $("div#result ul").append(showInfo);
-        }
-    });*/
-
 });

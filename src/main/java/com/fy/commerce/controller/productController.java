@@ -35,16 +35,6 @@ public class productController {
     @RequestMapping(value = "/queryAllCategoryInfo", method = RequestMethod.GET)
     @ApiOperation(value = "获取商品分类信息", notes = "获取商品分类接口")
     public Result queryAllCategoryInfo(Model model){
-
-
-        return new Result(200, productService.getCategoryAndCategorySecondInfo());
-    }
-
-    @ResponseBody
-    @RequestMapping(value ="/queryAllProductInfo", method = RequestMethod.GET)
-    @ApiOperation(value = "获取所有商品信息", notes = "获取所有商品信息接口")
-    public Result queryAllProductInfo(Model model, HttpServletRequest request){
-
         return new Result(200, productService.getCategoryAndCategorySecondInfo());
     }
 
@@ -56,4 +46,13 @@ public class productController {
         List<Product> list = productService.getHotProductInfoByPage(1,10);
         return new Result(200, list);
     }
+
+    @ResponseBody
+    @RequestMapping(value ="/queryProductInfoByPage", method = RequestMethod.GET)
+    @ApiOperation(value = "获取商品分页信息", notes = "获取商品分页信息接口")
+    public Result queryAllProductInfo(Model model, HttpServletRequest request){
+
+        return new Result(200, productService.getCategoryAndCategorySecondInfo());
+    }
+
 }

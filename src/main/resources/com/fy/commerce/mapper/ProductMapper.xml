@@ -11,6 +11,7 @@
     <result column="is_hot" property="isHot" jdbcType="INTEGER" />
     <result column="upload_date" property="uploadDate" jdbcType="TIMESTAMP" />
     <result column="category_second_id" property="categorySecondId" jdbcType="INTEGER" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -111,11 +112,11 @@
     </selectKey>
     insert into product (product_name, market_price,
       shop_price, image, description, 
-      is_hot, upload_date, category_second_id
+      is_hot, is_del, upload_date, category_second_id
       )
     values (#{productName,jdbcType=VARCHAR}, #{marketPrice,jdbcType=DOUBLE},
       #{shopPrice,jdbcType=DOUBLE}, #{image,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{isHot,jdbcType=INTEGER}, #{uploadDate,jdbcType=TIMESTAMP}, #{categorySecondId,jdbcType=INTEGER}
+      #{isHot,jdbcType=INTEGER},  #{isDel,jdbcType=INTEGER}, #{uploadDate,jdbcType=TIMESTAMP}, #{categorySecondId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.fy.commerce.model.Product" >
@@ -142,6 +143,9 @@
       <if test="isHot != null" >
         is_hot,
       </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
       <if test="uploadDate != null" >
         upload_date,
       </if>
@@ -167,6 +171,9 @@
       </if>
       <if test="isHot != null" >
         #{isHot,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
       </if>
       <if test="uploadDate != null" >
         #{uploadDate,jdbcType=TIMESTAMP},
@@ -206,6 +213,9 @@
       <if test="record.isHot != null" >
         is_hot = #{record.isHot,jdbcType=INTEGER},
       </if>
+      <if test="record.isDel != null" >
+        is_hot = #{record.isDel,jdbcType=INTEGER},
+      </if>
       <if test="record.uploadDate != null" >
         upload_date = #{record.uploadDate,jdbcType=TIMESTAMP},
       </if>
@@ -226,6 +236,7 @@
       image = #{record.image,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
       is_hot = #{record.isHot,jdbcType=INTEGER},
+      is_del = #{record.isDel,jdbcType=INTEGER},
       upload_date = #{record.uploadDate,jdbcType=TIMESTAMP},
       category_second_id = #{record.categorySecondId,jdbcType=INTEGER}
     <if test="_parameter != null" >
@@ -253,6 +264,9 @@
       <if test="isHot != null" >
         is_hot = #{isHot,jdbcType=INTEGER},
       </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
       <if test="uploadDate != null" >
         upload_date = #{uploadDate,jdbcType=TIMESTAMP},
       </if>
@@ -270,6 +284,7 @@
       image = #{image,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       is_hot = #{isHot,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER},
       upload_date = #{uploadDate,jdbcType=TIMESTAMP},
       category_second_id = #{categorySecondId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

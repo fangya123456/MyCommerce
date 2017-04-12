@@ -20,4 +20,7 @@ public interface ResultCode {
     int LOGIN_STATE_FAIL_4 = -4;   //用户未激活
     int LOGIN_STATE_FAIL_5 = -5;   //用户已注销
 
+    //商城页
+    int Product_PAGE_NUM = 5;
+    int Product_PAGE_SIZE = 20;
 }

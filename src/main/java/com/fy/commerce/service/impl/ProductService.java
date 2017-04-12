@@ -38,7 +38,6 @@ public class ProductService implements IProductService {
 
     @Override
     public Product findProductInfoById(int id){
-
         return productMapper.selectByPrimaryKey(id);
     }
 
@@ -72,7 +71,6 @@ public class ProductService implements IProductService {
     }
 
     public List<CategorySecond> getCategorySecondInfoList(){
-
         CategorySecondExample categorySecondExample = new CategorySecondExample();
         categorySecondExample.createCriteria();
         return categorySecondMapper.selectByExample(categorySecondExample);
@@ -97,14 +95,12 @@ public class ProductService implements IProductService {
 
     @Cacheable(value = "ProductInfo")
     public List<Product> getProductInfoByPage(int page, int pageSize){
-
         ProductExample productExample = new ProductExample();
         productExample.createCriteria();
         PageHelper.startPage(page, pageSize);
         List<Product> productList = productMapper.selectByExample(productExample);
         return productList;
     }
-
 
     public List<Product> getHotProductInfoByPage(int page, int pageSize){
         ProductExample productExample = new ProductExample();
@@ -114,6 +110,10 @@ public class ProductService implements IProductService {
         return hotProductList;
     }
 
-
+    public int getProductTotalPage(){
+        ProductExample productExample = new ProductExample();
+        productExample.createCriteria().andIsDelEqualTo(0);
+        return productMapper.countByExample(productExample)/20;
+    }
 
 }
