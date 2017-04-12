@@ -2,7 +2,6 @@
  * Created by dell-pc on 2017/4/12.
  */
 $(document).ready(function(){
-
     //获取content对象里面，数据的数量
     var total_pages = parseInt($("input.totalPage").val());
     //计算页面显示的数量
@@ -25,13 +24,16 @@ $(document).ready(function(){
 
     $('.page_navigation').html(navigation_html);
 
+    var _current_page_num = ".current_page_"+current_page;
+    $(_current_page_num).css({"color":"red"});
+
 });
 
 //上一页
 function previous(){
     var new_page = parseInt($('#current_page').val()) - 1;
     //if there is an item before the current active link run the function
-    if(parseInt($(".current_page").val())>0){
+    if(new_page > 0){
         go_to_page(new_page);
     }else {
         go_to_page(new_page+1)
@@ -42,7 +44,7 @@ function previous(){
 function next(){
     var new_page = parseInt($('#current_page').val()) + 1;
     //if there is an item after the current active link run the function
-    if(parseInt($(".current_page").val())<parseInt($("input.totalPage").val())+1){
+    if(new_page<parseInt($("input.totalPage").val())+1){
         go_to_page(new_page);
     }else{
         go_to_page(new_page-1)
@@ -52,5 +54,5 @@ function next(){
 //跳转某一页
 function go_to_page(page_num){
     //跳转到某页
-    $.get("/product?page="+page_num);
+    window.open("/product?page="+page_num,"_self");
 }
