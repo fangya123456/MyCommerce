@@ -2,12 +2,11 @@
  * Created by dell-pc on 2017/4/12.
  */
 $(document).ready(function(){
-    //获取content对象里面，数据的数量
+    //获取总page数
     var total_pages = parseInt($("input.totalPage").val());
-    //计算页面显示的数量
+    //设置页面显示的数量
     var number_of_pages = 5;
 
-    //隐藏域默认值
     var navigation_html = '<a class="previous_page" href="javascript:previous();">上一页</a>';
     var current_page =parseInt($('#current_page').val());
     var start_page_num = 1;

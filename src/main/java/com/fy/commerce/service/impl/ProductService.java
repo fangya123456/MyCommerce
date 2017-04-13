@@ -94,14 +94,19 @@ public class ProductService implements IProductService {
     }
 
     @Cacheable(value = "ProductInfo")
-    public List<Product> getProductInfoByPage(int page, int pageSize){
+    public List<Product> getProductInfoByPage(int page, int pageSize, boolean desc){
         ProductExample productExample = new ProductExample();
         productExample.createCriteria();
+        if (desc){
+            //降序查找
+            productExample.setOrderByClause("id desc");
+        }
         PageHelper.startPage(page, pageSize);
         List<Product> productList = productMapper.selectByExample(productExample);
         return productList;
     }
 
+    @Cacheable(value = "HotProductInfo")
     public List<Product> getHotProductInfoByPage(int page, int pageSize){
         ProductExample productExample = new ProductExample();
         productExample.createCriteria().andIsHotEqualTo(1);

@@ -42,14 +42,35 @@ public class indexController {
     public String index(Model model, HttpServletRequest request, HttpSession session){
 
         log.info("index:访问首页");
-       /* List<Product> list = productService.getHotProductInfoByPage(1,10);
-        model.addAttribute("hotProductList", list);*/
+        List<Product> hotList = productService.getHotProductInfoByPage(1,10);
+        model.addAttribute("hotProductList", hotList);
+        List<Product> newList = productService.getProductInfoByPage(1,10,true);
+        model.addAttribute("newProductList", newList);
+
         String state = (String) session.getAttribute("STATE");
         if(state != null && state.equals("1")){
             ShopUser user = (ShopUser) request.getSession().getAttribute("USER_LOGIN");
             model.addAttribute("user_login",user);
         }
         return "index";
+    }
+
+    @ApiIgnore
+    @RequestMapping(value = "/home", method = {RequestMethod.GET})
+    public String home(Model model, HttpServletRequest request, HttpSession session){
+
+        log.info("home:访问首页");
+        /*List<Product> hotList = productService.getHotProductInfoByPage(1,10);
+        model.addAttribute("hotProductList", hotList);
+        List<Product> newList = productService.getProductInfoByPage(1,10,true);
+        model.addAttribute("newProductList", newList);*/
+
+        String state = (String) session.getAttribute("STATE");
+        if(state != null && state.equals("1")){
+            ShopUser user = (ShopUser) request.getSession().getAttribute("USER_LOGIN");
+            model.addAttribute("user_login",user);
+        }
+        return "home";
     }
 
     @ApiIgnore
@@ -85,9 +106,9 @@ public class indexController {
         if(user != null && state != null && state.equals("1")){
             model.addAttribute("user_login",user);
         }
-        List<Product> productList = productService.getProductInfoByPage(page,20);
+        List<Product> productList = productService.getProductInfoByPage(page, ResultCode.Product_PAGE_SIZE, false);
         model.addAttribute("productList", productList);
-
+        //需调整
         PageVo pageVo = new PageVo();
         pageVo.setTotalPage(productService.getProductTotalPage());
         pageVo.setCurrentPage(page);

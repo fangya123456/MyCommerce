@@ -17,9 +17,6 @@ import java.util.Map;
 @WebFilter(filterName="myFilter",urlPatterns="/*")
 public class MyFilter implements Filter {
 
-    @Value("${server.contextPath}")
-    private String contextPath;
-
     @Override
     public void init(FilterConfig config) throws ServletException {
 
@@ -32,13 +29,12 @@ public class MyFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest)request;
         String uri = httpServletRequest.getRequestURI();
 
-      /*  if (uri.equals("/product")){
-            String path = uri +"?page=1";
+        if (uri.equals("/")){
+            String path = "/index";
             request.getRequestDispatcher(path).forward(httpServletRequest, response);
         }else {
             chain.doFilter(request, response);
-        }*/
-        chain.doFilter(request, response);
+        }
     }
 
     @Override

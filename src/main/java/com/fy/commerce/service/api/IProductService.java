@@ -26,7 +26,7 @@ public interface IProductService {
 
     Map<String, Object> getCategoryAndCategorySecondInfo();
 
-    List<Product> getProductInfoByPage(int page, int pageSize);
+    List<Product> getProductInfoByPage(int page, int pageSize, boolean desc);
 
     List<Product> getHotProductInfoByPage(int page, int pageSize);
 
