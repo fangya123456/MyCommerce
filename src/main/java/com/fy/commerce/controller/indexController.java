@@ -116,4 +116,11 @@ public class indexController {
         return "product";
     }
 
+    @RequestMapping(value = "/position", method = RequestMethod.GET)
+    public String testHello(HttpServletRequest request, Model model){
+
+        model.addAttribute("city","上海");
+        return "position";
+    }
+
 }

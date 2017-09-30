@@ -144,6 +144,12 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.1.35</version>
+        </dependency>
         <!--
         MyBatis提供了拦截器接口，我们可以实现自己的拦截器，
         将其作为一个plugin装入到SqlSessionFactory中。

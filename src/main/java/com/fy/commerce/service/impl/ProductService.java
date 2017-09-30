@@ -106,7 +106,7 @@ public class ProductService implements IProductService {
         return productList;
     }
 
-    @Cacheable(value = "HotProductInfo")
+//    @Cacheable(value = "HotProductInfo")
     public List<Product> getHotProductInfoByPage(int page, int pageSize){
         ProductExample productExample = new ProductExample();
         productExample.createCriteria().andIsHotEqualTo(1);

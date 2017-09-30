@@ -4,14 +4,17 @@ import com.fy.commerce.config.MyHttpSessionListener;
 import com.fy.commerce.config.MyInterceptor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.http.SessionEventHttpSessionListenerAdapter;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -57,6 +60,15 @@ public class Application extends WebMvcConfigurerAdapter{
         List<HttpSessionListener> list = new ArrayList<>();
         list.add(new MyHttpSessionListener());
         return new SessionEventHttpSessionListenerAdapter(list);
+    }
+
+    @Autowired
+    private RestTemplateBuilder builder;
+
+    // 使用RestTemplateBuilder来实例化RestTemplate对象，spring默认已经注入了RestTemplateBuilder实例
+    @Bean
+    public RestTemplate restTemplate() {
+        return builder.build();
     }
 }
 
